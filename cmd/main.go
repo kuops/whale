@@ -24,14 +24,14 @@ func main() {
 	pflag.StringSliceVarP(&whaleConfig.MountPaths, "mount-paths", "p", []string{"/data/logs"}, "collector container mount paths.")
 	pflag.Parse()
 
-	if whaleConfig.NodeIP == "" {
-		log.Println("node-ip is empty.")
-		os.Exit(5)
-	}
-
 	if whaleConfig.Help {
 		pflag.PrintDefaults()
 		os.Exit(0)
+	}
+
+	if whaleConfig.NodeIP == "" {
+		log.Println("node-ip is empty.")
+		os.Exit(5)
 	}
 
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
